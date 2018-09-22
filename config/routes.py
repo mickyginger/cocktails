@@ -1,5 +1,5 @@
 from flask import abort, jsonify
-from app import app
+from . import app
 from controllers import cocktails
 
 app.add_url_rule("/cocktails", "cocktails_index", cocktails.index, methods=["GET"])

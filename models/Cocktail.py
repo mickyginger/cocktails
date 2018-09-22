@@ -1,8 +1,8 @@
 import datetime
-from marshmallow import fields, Schema
-from . import db
+from marshmallow import fields
+from config import db, ma
 
-class CocktailModel(db.Model):
+class Cocktail(db.Model):
     """
     Cocktail model
     """
@@ -23,6 +23,9 @@ class CocktailModel(db.Model):
         for key, item in data.items():
             setattr(self, key, item)
 
+        self.created_at = datetime.datetime.utcnow()
+        self.updated_at = datetime.datetime.utcnow()
+
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -37,15 +40,9 @@ class CocktailModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-class CocktailSchema(Schema):
+class CocktailSchema(ma.Schema):
     """
     Cocktail schema
     """
-    id = fields.Int(dump_only=True)
-    name = fields.Str(required=True)
-    image = fields.Str(required=True)
-    # ingredients = fields.Dict(required=True)
-    method = fields.Str(required=True)
-    about = fields.Str(required=True)
-    created_at = fields.DateTime(dump_only=True)
-    updated_at = fields.DateTime(dump_only=True)
+    class Meta:
+        fields = ('id', 'name', 'image', 'method', 'about', 'created_at', 'updated_at')

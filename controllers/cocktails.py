@@ -1,14 +1,19 @@
 from flask import request, jsonify
-from app import app
-from models.Cocktail import CocktailModel, CocktailSchema
+from config import app
+from models.Cocktail import Cocktail, CocktailSchema
 
 cocktail_schema = CocktailSchema()
+cocktails_schema = CocktailSchema(many=True)
 
 def index():
-    return jsonify({ "message": "Cocktails INDEX" })
+    cocktails = Cocktail.query.all()
+    return cocktails_schema.jsonify(cocktails)
 
 def show(id):
-    return jsonify({ "message": "Cocktails SHOW" })
+    cocktail = Cocktail.query.get(id)
+    if not cocktail:
+        return jsonify({ "message": "Not found" }), 404
+    return cocktail_schema.jsonify(cocktail)
 
 def create():
     req_data = request.get_json()
@@ -17,13 +22,28 @@ def create():
     if error:
         return jsonify({ "error": error }), 400
 
-    cocktail = CocktailModel(data)
+    cocktail = Cocktail(data)
     cocktail.save()
 
-    return jsonify(cocktail)
+    return cocktail_schema.jsonify(cocktail)
 
 def update(id):
-    return jsonify({ "message": "Cocktails UPDATE" })
+    req_data = request.get_json()
+    data, error = cocktail_schema.load(req_data)
+
+    if error:
+        return jsonify({ "error": error }), 400
+
+    cocktail = Cocktail.query.get(id)
+    cocktail.update(data)
+
+    return cocktail_schema.jsonify(cocktail)
 
 def delete(id):
-    return jsonify({ "message": "Cocktails DELETE" })
+    cocktail = Cocktail.query.get(id)
+
+    if not cocktail:
+        return jsonify({ "message": "Not found" }), 404
+
+    cocktail.delete()
+    return '', 204
