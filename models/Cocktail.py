@@ -1,5 +1,6 @@
 import datetime
 from marshmallow import fields
+from sqlalchemy.dialects.postgresql import JSON
 from config import db, ma
 
 class Cocktail(db.Model):
@@ -13,7 +14,7 @@ class Cocktail(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False, unique=True)
     image = db.Column(db.String(128), nullable=False, unique=True)
-    # ingredients = db.Column(db.PickleType(), nullable=False)
+    ingredients = db.Column(JSON, nullable=False)
     method = db.Column(db.String(500), nullable=False)
     about = db.Column(db.String(500), nullable=False)
     created_at = db.Column(db.DateTime)
@@ -45,4 +46,4 @@ class CocktailSchema(ma.Schema):
     Cocktail schema
     """
     class Meta:
-        fields = ('id', 'name', 'image', 'method', 'about', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'image', 'ingredients', 'method', 'about', 'created_at', 'updated_at')

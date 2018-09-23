@@ -11,6 +11,8 @@ marshmallow = "*"
 flask-migrate = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+flask-bcrypt = "*"
+pyjwt = "*"
 
 [dev-packages]
 
