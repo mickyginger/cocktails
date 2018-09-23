@@ -1,4 +1,4 @@
-from config import app, db
+from index import app, db
 from models.User import User
 from models.Cocktail import Cocktail
 

@@ -1,5 +1,5 @@
 from flask import request, jsonify, g
-from config import app
+from index import app
 from models.Cocktail import Cocktail, CocktailSchema
 from lib.secure_route import secure_route
 

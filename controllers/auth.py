@@ -2,8 +2,9 @@ import jwt
 import os
 import datetime
 from flask import request, jsonify, json
-from config import app
+from index import app
 from models.User import User, UserSchema
+from config.environment import secret
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
@@ -40,7 +41,7 @@ def login():
 
     token = jwt.encode(
         payload,
-        os.getenv('SECRET', 'shh'),
+        secret,
         'HS256'
     ).decode('utf-8')
 

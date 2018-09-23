@@ -4,6 +4,7 @@ import datetime
 from functools import wraps
 from flask import request, jsonify, g
 from models.User import User
+from config.environment import secret
 
 def secure_route(func):
     """
@@ -15,7 +16,7 @@ def secure_route(func):
             return jsonify({ 'message': 'Unauthorized' }), 401
 
         token = request.headers.get('Authorization').replace('Bearer ', '')
-        data = jwt.decode(token, os.getenv('SECRET', 'shh'))
+        data = jwt.decode(token, secret)
         user = User.query.get(data.get('sub'))
 
         if not user:
