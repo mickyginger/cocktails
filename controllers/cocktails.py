@@ -3,15 +3,15 @@ from index import app
 from models.Cocktail import Cocktail, CocktailSchema
 from lib.secure_route import secure_route
 
+student = { 'name': 'Caoimhe' }
+
 cocktail_schema = CocktailSchema()
 cocktails_schema = CocktailSchema(many=True)
 
-@secure_route
 def index():
     cocktails = Cocktail.query.all()
     return cocktails_schema.jsonify(cocktails)
 
-@secure_route
 def show(id):
     cocktail = Cocktail.query.get(id)
     if not cocktail:
@@ -27,6 +27,7 @@ def create():
         return jsonify({ "error": error }), 422
 
     cocktail = Cocktail(data)
+    cocktail.user_id = g.get('current_user').id
     cocktail.save()
 
     return cocktail_schema.jsonify(cocktail)
