@@ -1,23 +1,18 @@
 import datetime
 from marshmallow import fields
-from sqlalchemy.dialects.postgresql import JSON
 from index import db, ma
 
-class Cocktail(db.Model):
+class Comment(db.Model):
     """
-    Cocktail model
+    Comment model
     """
 
     # table name
-    __tablename__ = "cocktails"
+    __tablename__ = "comments"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False, unique=True)
-    image = db.Column(db.String(128), nullable=False, unique=True)
-    ingredients = db.Column(JSON, nullable=False)
-    method = db.Column(db.String(500), nullable=False)
-    about = db.Column(db.String(500), nullable=False)
-    comments = db.relationship('Comment', cascade='delete-orphan, delete')
+    content = db.Column(db.String(20), nullable=False, unique=True)
+    cocktail_id = db.Column(db.Integer, db.ForeignKey('cocktails.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User')
     created_at = db.Column(db.DateTime)
@@ -44,9 +39,9 @@ class Cocktail(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-class CocktailSchema(ma.Schema):
+class CommentSchema(ma.Schema):
     """
-    Cocktail schema
+    Comment schema
     """
     class Meta:
-        fields = ('id', 'name', 'image', 'ingredients', 'method', 'about', 'comments', 'created_at', 'updated_at')
+        fields = ('id', 'content', 'cocktail_id', 'user_id', 'user', 'created_at', 'updated_at')

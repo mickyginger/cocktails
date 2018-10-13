@@ -16,6 +16,7 @@ class User(db.Model):
     username = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String(128), nullable=False, unique=True)
     _password = db.Column(db.String(128))
+    cocktails = db.relationship('Cocktail', cascade='delete-orphan, delete')
     created_at = db.Column(db.DateTime)
     updated_at = db.Column(db.DateTime)
 
@@ -56,4 +57,4 @@ class UserSchema(ma.Schema):
     User schema
     """
     class Meta:
-        fields = ('id', 'username', 'email', 'password', 'created_at', 'updated_at')
+        fields = ('id', 'username', 'email', 'password', 'cocktails', 'created_at', 'updated_at')
