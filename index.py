@@ -8,8 +8,8 @@ from config.environment import db_uri
 app = Flask(__name__)
 
 db = SQLAlchemy()
-app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
