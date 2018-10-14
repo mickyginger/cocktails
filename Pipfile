@@ -15,6 +15,7 @@ flask-bcrypt = "*"
 pyjwt = "*"
 requests = "*"
 python-dotenv = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 
