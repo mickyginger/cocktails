@@ -14,6 +14,7 @@ marshmallow-sqlalchemy = "*"
 flask-bcrypt = "*"
 pyjwt = "*"
 requests = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
