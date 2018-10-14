@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from config.environment import db_uri
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='public')
 
 db = SQLAlchemy()
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
