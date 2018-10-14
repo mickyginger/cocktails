@@ -1,6 +1,6 @@
 import datetime
 from marshmallow import fields
-from index import db, ma
+from app import db, ma
 
 class Comment(db.Model):
     """

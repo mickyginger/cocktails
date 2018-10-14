@@ -1,4 +1,4 @@
-from index import app, db
+from app import app, db
 from models.User import User
 from models.Cocktail import Cocktail
 from models.Comment import Comment

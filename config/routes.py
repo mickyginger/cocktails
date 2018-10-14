@@ -1,5 +1,5 @@
 from flask import jsonify
-from index import app
+from app import app
 from controllers import cocktails, auth, darksky
 
 app.register_blueprint(cocktails.api, url_prefix='/api/cocktails')

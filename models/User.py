@@ -1,6 +1,6 @@
 import datetime
 from marshmallow import fields
-from index import db, ma, bcrypt
+from app import db, ma, bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import synonym
 

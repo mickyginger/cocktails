@@ -1,7 +1,7 @@
 import datetime
 from marshmallow import fields
 from sqlalchemy.dialects.postgresql import JSON
-from index import db, ma
+from app import db, ma
 
 class Cocktail(db.Model):
     """
