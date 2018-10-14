@@ -56,5 +56,7 @@ class UserSchema(ma.Schema):
     """
     User schema
     """
+    cocktails = fields.Nested('CocktailSchema', many=True, exclude=('user', 'comments', ))
     class Meta:
-        fields = ('id', 'username', 'email', 'password', 'cocktails', 'created_at', 'updated_at')
+        model = User
+        fields = ('id', 'username', 'email', 'cocktails', 'created_at', 'updated_at')

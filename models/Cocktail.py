@@ -48,5 +48,9 @@ class CocktailSchema(ma.Schema):
     """
     Cocktail schema
     """
+    comments = fields.Nested('CommentSchema', many=True, exclude=('user_id', ))
+    user = fields.Nested('UserSchema', only=('id', 'username'))
+
     class Meta:
-        fields = ('id', 'name', 'image', 'ingredients', 'method', 'about', 'comments', 'created_at', 'updated_at')
+        model = Cocktail
+        fields = ('id', 'name', 'image', 'ingredients', 'about', 'comments', 'user', 'created_at', 'updated_at')

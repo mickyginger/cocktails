@@ -43,5 +43,7 @@ class CommentSchema(ma.Schema):
     """
     Comment schema
     """
+    user = fields.Nested('UserSchema', only=('id', 'username'))
     class Meta:
-        fields = ('id', 'content', 'cocktail_id', 'user_id', 'user', 'created_at', 'updated_at')
+        model = Comment
+        fields = ('id', 'user', 'content', 'created_at', 'updated_at')
