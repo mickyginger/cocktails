@@ -28,8 +28,6 @@ def login():
     req_data = request.get_json()
     data, error = user_schema.load(req_data)
 
-    print(data)
-
     user = User.query.filter_by(email=data.get('email')).first()
 
     if not user or not user.validate_password(data.get('password', '')):

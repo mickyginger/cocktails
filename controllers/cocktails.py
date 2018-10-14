@@ -10,19 +10,19 @@ comment_schema = CommentSchema()
 
 api = Blueprint('cocktails', __name__)
 
-@api.route('')
+@api.route('/cocktails')
 def index():
     cocktails = Cocktail.query.all()
     return cocktails_schema.jsonify(cocktails)
 
-@api.route('/<int:id>')
+@api.route('/cocktails/<int:id>')
 def show(id):
     cocktail = Cocktail.query.get(id)
     if not cocktail:
         return jsonify({ 'message': 'Not found' }), 404
     return cocktail_schema.jsonify(cocktail)
 
-@api.route('', methods=['POST'])
+@api.route('/cocktails', methods=['POST'])
 @secure_route
 def create():
     req_data = request.get_json()
@@ -37,7 +37,7 @@ def create():
 
     return cocktail_schema.jsonify(cocktail)
 
-@api.route('/<int:id>', methods=['PUT', 'PATCH'])
+@api.route('/cocktails/<int:id>', methods=['PUT', 'PATCH'])
 @secure_route
 def update(id):
     req_data = request.get_json()
@@ -51,7 +51,7 @@ def update(id):
 
     return cocktail_schema.jsonify(cocktail)
 
-@api.route('/<int:id>', methods=['DELETE'])
+@api.route('/cocktails/<int:id>', methods=['DELETE'])
 @secure_route
 def delete(id):
     cocktail = Cocktail.query.get(id)
@@ -62,7 +62,7 @@ def delete(id):
     cocktail.delete()
     return '', 204
 
-@api.route('/<int:id>/comments', methods=['POST'])
+@api.route('/cocktails/<int:id>/comments', methods=['POST'])
 @secure_route
 def create_comment(id):
     req_data = request.get_json()
@@ -78,7 +78,7 @@ def create_comment(id):
 
     return comment_schema.jsonify(comment)
 
-@api.route('/<int:id>/comments/<int:comment_id>', methods=['DELETE'])
+@api.route('/cocktails/<int:id>/comments/<int:comment_id>', methods=['DELETE'])
 @secure_route
 def delete_comment(comment_id):
     comment = Comment.query.get(comment_id)
