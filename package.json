@@ -1,0 +1,38 @@
+{
+  "name": "react-webpack-setup",
+  "version": "1.0.0",
+  "description": "A React and Webpack setup for WDI",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "start:client": "webpack-dev-server",
+    "start:server": "flask run --port 4000",
+    "build": "webpack -p",
+    "start": "yarn build && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bulma": "^0.7.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.29.0",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
+  }
+}
