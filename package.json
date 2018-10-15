@@ -8,11 +8,11 @@
     "start:client": "webpack-dev-server",
     "start:server": "flask run --port 4000",
     "build": "webpack -p",
-    "postinstall": "[ \"$NODE_ENV\" = production ] && yarn build"
+    "postinstall": "[ \"$NODE_ENV\" = production ] && yarn build || exit 0"
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bulma": "^0.7.1",
+    "bulma": "^0.7.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.3.1"
