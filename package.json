@@ -8,7 +8,7 @@
     "start:client": "webpack-dev-server",
     "start:server": "flask run --port 4000",
     "build": "webpack -p",
-    "postinstall": "[ \"$NODE_ENV\" == production ] && yarn build"
+    "postinstall": "[ \"$NODE_ENV\" = production ] && yarn build"
   },
   "dependencies": {
     "axios": "^0.18.0",
