@@ -54,3 +54,5 @@ class CocktailSchema(ma.Schema):
     class Meta:
         model = Cocktail
         fields = ('id', 'name', 'image', 'ingredients', 'about', 'comments', 'user', 'created_at', 'updated_at')
+        dump_only = ('comments', 'user', 'created_at', 'updated_at')
+        load_only = ('user_id', )

@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start:client": "webpack-dev-server",
-    "start:server": "flask run --port 4000",
+    "start:server": "(pipenv shell && flask run --port 4000) || flask run --port 4000",
     "build": "webpack -p",
     "postinstall": "[ \"$NODE_ENV\" = production ] && yarn build || exit 0"
   },

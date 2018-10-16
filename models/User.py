@@ -1,5 +1,5 @@
 import datetime
-from marshmallow import fields
+from marshmallow import fields, validates_schema, ValidationError
 from app import db, ma, bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import synonym
@@ -22,7 +22,7 @@ class User(db.Model):
 
     @hybrid_property
     def password(self):
-        return self._password
+        pass
 
     @password.setter
     def password(self, plaintext):
@@ -50,13 +50,37 @@ class User(db.Model):
         db.session.commit()
 
     def validate_password(self, plaintext):
-        return bcrypt.check_password_hash(self.password, plaintext)
+        return bcrypt.check_password_hash(self._password, plaintext)
 
 class UserSchema(ma.Schema):
     """
     User schema
     """
+    username = fields.String(required=True, error_messages={'required': 'Username is required'})
+    email = fields.Email(required=True, error_messages={'required': 'Email is required'})
+    password = fields.String(required=True, error_messages={'required': 'Password is required'})
+    password_confirmation = fields.String(required=True, error_messages={'required': 'Password confirmation is required'})
     cocktails = fields.Nested('CocktailSchema', many=True, exclude=('user', 'comments', ))
+
+    @validates_schema
+    def validate_password(self, data):
+        if(data.get('password', '') != data.get('password_confirmation', '')):
+            raise ValidationError(
+                'Passwords do not match',
+                'password_confirmation'
+            )
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'cocktails', 'created_at', 'updated_at')
+        fields = (
+            'id',
+            'username',
+            'email',
+            'password',
+            'password_confirmation',
+            'cocktails',
+            'created_at',
+            'updated_at'
+        )
+        dump_only = ('created_at', 'updated_at', 'cocktails')
+        load_only = ('password', 'password_confirmation')

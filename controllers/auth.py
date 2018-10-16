@@ -4,6 +4,7 @@ from flask import Blueprint, request, jsonify, g
 from models.User import User, UserSchema
 from config.environment import secret
 from lib.secure_route import secure_route
+from lib.error_handler import error_handler
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
@@ -13,10 +14,10 @@ api = Blueprint('auth', __name__)
 @api.route('/register', methods=['POST'])
 def register():
     req_data = request.get_json()
-    data, error = user_schema.load(req_data)
+    data, errors = user_schema.load(req_data)
 
-    if error:
-        return jsonify({ 'error': error }), 422
+    if errors:
+        return jsonify({ 'errors': error_handler(errors) }), 422
 
     user = User(data)
     user.save()
@@ -45,7 +46,7 @@ def login():
         'HS256'
     ).decode('utf-8')
 
-    return jsonify({ 'message': 'Welcome back {}!'.format(user.username), 'token': token })
+    return user_schema.jsonify(user)
 
 @api.route('/profile', methods=['GET'])
 @secure_route

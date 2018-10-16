@@ -26,10 +26,10 @@ def show(id):
 @secure_route
 def create():
     req_data = request.get_json()
-    data, error = cocktail_schema.load(req_data)
+    data, errors = cocktail_schema.load(req_data)
 
-    if error:
-        return jsonify({ "error": error }), 422
+    if errors:
+        return jsonify({ 'errors': errors }), 422
 
     cocktail = Cocktail(data)
     cocktail.user_id = g.get('current_user').id
@@ -41,10 +41,10 @@ def create():
 @secure_route
 def update(id):
     req_data = request.get_json()
-    data, error = cocktail_schema.load(req_data)
+    data, errors = cocktail_schema.load(req_data)
 
-    if error:
-        return jsonify({ 'error': error }), 422
+    if errors:
+        return jsonify({ 'errors': errors }), 422
 
     cocktail = Cocktail.query.get(id)
     cocktail.update(data)
@@ -66,10 +66,10 @@ def delete(id):
 @secure_route
 def create_comment(id):
     req_data = request.get_json()
-    data, error = comment_schema.load(req_data)
+    data, errors = comment_schema.load(req_data)
 
-    if error:
-        return jsonify({ "error": error }), 422
+    if errors:
+        return jsonify({ 'errors': errors }), 422
 
     comment = Comment(data)
     comment.cocktail_id = id
