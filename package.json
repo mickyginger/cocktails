@@ -11,7 +11,7 @@
     "postinstall": "[ \"$NODE_ENV\" = production ] && yarn build || exit 0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bulma": "^0.7.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
